@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StringCalculator {
-
     public int add(String numbers) {
         if (numbers.isEmpty()) {
             return 0;
@@ -36,7 +35,9 @@ public class StringCalculator {
                 negativeNumbers.add(n);
             }
 
-            sum += n;
+            if (n <= 1000) {
+                sum += n;
+            }
         }
 
         if (!negativeNumbers.isEmpty()) {
