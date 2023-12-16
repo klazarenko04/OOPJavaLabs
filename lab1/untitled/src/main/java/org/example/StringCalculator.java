@@ -7,13 +7,13 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] numArray = numbers.split(",");
+        String[] numArray = numbers.split("[,\n]");
 
         int sum = 0;
 
         for (String num : numArray) {
             if (num.isEmpty()) {
-                throw new IllegalArgumentException("Input contains consecutive commas or empty values");
+                throw new IllegalArgumentException("Input contains consecutive delimiters or empty values");
             }
 
             int n = Integer.parseInt(num);
@@ -22,6 +22,5 @@ public class StringCalculator {
 
         return sum;
     }
-
 
 }
