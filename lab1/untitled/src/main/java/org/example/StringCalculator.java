@@ -7,7 +7,16 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] numArray = numbers.split("[,\n]");
+        String delimiter = ",";
+        if (numbers.startsWith("//")) {
+            int delimiterEnd = numbers.indexOf("\n");
+            if (delimiterEnd != -1) {
+                delimiter = numbers.substring(2, delimiterEnd);
+                numbers = numbers.substring(delimiterEnd + 1);
+            }
+        }
+
+        String[] numArray = numbers.split("[,\n" + delimiter + "]");
 
         int sum = 0;
 
