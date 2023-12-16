@@ -13,12 +13,17 @@ public class StringCalculator {
         if (numbers.startsWith("//")) {
             int delimiterEnd = numbers.indexOf("\n");
             if (delimiterEnd != -1) {
-                delimiter = numbers.substring(2, delimiterEnd);
+                String delimiterPrefix = numbers.substring(2, delimiterEnd);
+                if (delimiterPrefix.startsWith("[") && delimiterPrefix.endsWith("]")) {
+                    delimiter = delimiterPrefix.substring(1, delimiterPrefix.length() - 1);
+                } else {
+                    delimiter = delimiterPrefix;
+                }
                 numbers = numbers.substring(delimiterEnd + 1);
             }
         }
 
-        String[] numArray = numbers.split("[,\n" + delimiter + "]");
+        String[] numArray = numbers.split("\\Q" + delimiter + "\\E|,|\n");
 
         int sum = 0;
 
@@ -46,5 +51,4 @@ public class StringCalculator {
 
         return sum;
     }
-
 }
