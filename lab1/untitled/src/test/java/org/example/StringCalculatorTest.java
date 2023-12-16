@@ -1,21 +1,27 @@
 package org.example;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StringCalculatorTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class StringCalculatorTest {
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
 
     @Test
-    public void testMoreThanTwoNumbers() {
+    public void testEmptyString() {
         StringCalculator calculator = new StringCalculator();
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            calculator.add("1,2,3");
-        });
-
-        assertEquals("Input contains more than 2 numbers", exception.getMessage());
+        assertEquals(0, calculator.add(""));
     }
+
     @Test
     public void testSingleString() {
         StringCalculator calculator = new StringCalculator();
@@ -26,5 +32,17 @@ public class StringCalculatorTest {
     public void testTwoNumbers() {
         StringCalculator calculator = new StringCalculator();
         assertEquals(3, calculator.add("1,2"));
+    }
+
+    @Test
+    public void testMoreThanTwoNumbers() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1,2,3"));
+    }
+
+    @Test
+    public void testFourNumbers() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(10, calculator.add("1,2,3,4"));
     }
 }
