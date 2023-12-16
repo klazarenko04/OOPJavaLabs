@@ -2,6 +2,8 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
     public int add(String numbers) {
@@ -15,15 +17,20 @@ public class StringCalculator {
             if (delimiterEnd != -1) {
                 String delimiterPrefix = numbers.substring(2, delimiterEnd);
                 if (delimiterPrefix.startsWith("[") && delimiterPrefix.endsWith("]")) {
-                    delimiter = delimiterPrefix.substring(1, delimiterPrefix.length() - 1);
+                    Matcher matcher = Pattern.compile("\\[(.*?)]").matcher(delimiterPrefix);
+                    List<String> delimiters = new ArrayList<>();
+                    while (matcher.find()) {
+                        delimiters.add(Pattern.quote(matcher.group(1)));
+                    }
+                    delimiter = String.join("|", delimiters);
                 } else {
-                    delimiter = delimiterPrefix;
+                    delimiter = Pattern.quote(delimiterPrefix);
                 }
                 numbers = numbers.substring(delimiterEnd + 1);
             }
         }
 
-        String[] numArray = numbers.split("\\Q" + delimiter + "\\E|,|\n");
+        String[] numArray = numbers.split(delimiter + "|,|\n");
 
         int sum = 0;
 
